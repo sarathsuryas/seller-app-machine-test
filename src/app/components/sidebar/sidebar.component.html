@@ -1,0 +1,50 @@
+<aside class="flex flex-col h-screen transition-all duration-300"
+           [class.w-64]="(sidebarService.isExpanded$ | async)"
+           [class.w-16]="!(sidebarService.isExpanded$ | async)">
+      <div class="flex items-center h-16 px-4 border-b bg-white">
+        <img *ngIf="(sidebarService.isExpanded$ | async)" 
+             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/SellerApp_Assignment-Dr46lOW3krQ9X3qddcDjfbGdMtB8Ot.png" 
+             alt="Logo" 
+             class="h-8" />
+        <button (click)="sidebarService.toggleSidebar()" 
+                class="ml-auto p-2 rounded-lg hover:bg-gray-100">
+          <i class="fas" [class.fa-times]="(sidebarService.isExpanded$ | async)"
+                        [class.fa-bars]="!(sidebarService.isExpanded$ | async)"></i>
+        </button>
+      </div>
+
+      <nav class="flex-1 overflow-y-auto bg-white">
+        <div class="px-2 py-4 space-y-1">
+          <a *ngFor="let item of navItems"
+             [routerLink]="item.link"
+             [class.bg-[#696ffb]]="item.isActive"
+             [class.text-white]="item.isActive"
+             class="flex items-center px-3 py-2 rounded-lg transition-colors hover:bg-gray-100"
+             [class.justify-center]="!(sidebarService.isExpanded$ | async)">
+            <i [class]="item.icon"></i>
+            <span *ngIf="(sidebarService.isExpanded$ | async)" 
+                  class="ml-3">{{item.label}}</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="p-4 bg-white border-t dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex items-center justify-between">
+          <span (click)="toggleDarkMode()" *ngIf="(sidebarService.isExpanded$ | async)">
+            Dark Mode
+          </span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" [(ngModel)]="isDarkMode" (change)="toggleDarkMode()" class="sr-only peer" />
+            <div
+              class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer
+              peer-checked:after:translate-x-full peer-checked:after:border-white
+              after:content-[''] after:absolute after:top-[2px] after:left-[2px]
+              after:bg-white after:border-gray-300 after:border after:rounded-full
+              after:h-5 after:w-5 after:transition-all peer-checked:bg-[#696ffb] dark:bg-gray-700"
+            >
+            </div>
+          </label>
+        </div>
+      </div>
+      
+    </aside>

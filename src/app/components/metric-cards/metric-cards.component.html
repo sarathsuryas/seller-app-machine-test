@@ -1,0 +1,18 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+    <div *ngFor="let card of cards" 
+         class="bg-white rounded-lg p-6 shadow-sm">
+      <h3 class="text-sm font-medium text-gray-500">{{card.title}}</h3>
+      <p class="text-2xl font-bold mt-2">{{card.value}}</p>
+      <div class="flex items-center mt-2">
+        <div class="flex items-center text-sm"
+             [class.text-green-500]="card.change.isPositive"
+             [class.text-red-500]="!card.change.isPositive">
+          <i class="fas mr-1"
+             [class.fa-arrow-up]="card.change.isPositive"
+             [class.fa-arrow-down]="!card.change.isPositive"></i>
+          {{card.change.value}}
+        </div>
+        <span class="text-sm text-gray-500 ml-2">Compared to last month</span>
+      </div>
+    </div>
+  </div>
