@@ -1,9 +1,10 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 import {  RouterModule } from '@angular/router';
 import { SidebarService } from '../../services/sidebar.service';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { DarkModeService } from '../../services/darkmode.service';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 interface NavItem {
   icon: string;
@@ -15,14 +16,19 @@ interface NavItem {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterModule,CommonModule,
-    FormsModule],
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
-})
-export class SidebarComponent {
+  imports: [
+    RouterModule,
+    CommonModule,
+    FormsModule,
+    MatSlideToggleModule
+  ],
+    templateUrl: './sidebar.component.html',
+    styleUrl: './sidebar.component.css'
+  })
+  export class SidebarComponent {
+  constructor(public sidebarService: SidebarService,private darkModeService:DarkModeService) {}
 
-  isDarkMode = false;
+  isDarkMode$ = this.darkModeService.darkMode$;
 
   navItems: NavItem[] = [
     { icon: 'fas fa-th-large', label: 'Dashboard', link: '/dashboard', isActive: true },
@@ -37,8 +43,9 @@ export class SidebarComponent {
     { icon: 'fas fa-question-circle', label: 'Help', link: '/help' },
   ];
 
-  constructor(public sidebarService: SidebarService,private renderer: Renderer2) {}
+  
   toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
+    this.darkModeService.toggleDarkMode();
+
   }
 }

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     "./src/**/*.{html,ts}",
   ],
@@ -7,7 +8,9 @@ module.exports = {
     roboto: ['Roboto', 'sans-serif'],
   },
   theme: {
-    extend: {},
+    extend: {colors: {
+      customBlue: '#1F214A', // Add your custom color
+    }},
   },
   plugins: [],
 }
